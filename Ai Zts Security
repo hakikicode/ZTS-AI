@@ -1,0 +1,51 @@
+import { useState } from 'react';
+
+export default function Home() {
+  const [query, setQuery] = useState('');
+  const [response, setResponse] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleQuery = async () => {
+    setLoading(true);
+    setResponse('');
+    
+    try {
+      const res = await fetch('/api/query', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query }),
+      });
+      
+      const data = await res.json();
+      setResponse(data.response || 'No response received.');
+    } catch (error) {
+      setResponse('Error processing request.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gray-100">
+      <h1 className="text-2xl font-bold mb-4">AI-Powered Zero Trust Security Assistant</h1>
+      <textarea
+        className="w-full max-w-lg p-2 border rounded"
+        rows="4"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Enter your security query..."
+      />
+      <button
+        className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        onClick={handleQuery}
+        disabled={loading}
+      >
+        {loading ? 'Processing...' : 'Submit Query'}
+      </button>
+      <div className="mt-4 w-full max-w-lg p-2 bg-white border rounded shadow">
+        <strong>Response:</strong>
+        <p>{response}</p>
+      </div>
+    </div>
+  );
+}
