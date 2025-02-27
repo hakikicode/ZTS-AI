@@ -1,0 +1,18 @@
+import joblib
+import numpy as np
+from sklearn.ensemble import RandomForestClassifier
+
+# Sample training data (Replace with real threat intelligence dataset)
+X_train = np.array([
+    [1, 0, 0.9],  # Low risk
+    [3, 2, 0.6],  # Medium risk
+    [10, 5, 0.2]  # High risk
+])
+y_train = np.array([0, 1, 2])  # 0: Low, 1: Medium, 2: High risk
+
+# Train model
+model = RandomForestClassifier()
+model.fit(X_train, y_train)
+
+# Save model
+joblib.dump(model, "model.pkl")
