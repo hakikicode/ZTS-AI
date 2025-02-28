@@ -82,8 +82,8 @@ ZTS-AI/
 3. View the risk score and AI security suggestions.
 
 ## Live Demo
-- **Backend API:** `https://your-vercel-backend-url/analyze`
-- **Frontend UI:** `https://your-frontend-url/`
+- **Backend API:** ``
+- **Frontend UI:** ``
 
 ## License
 MIT License
